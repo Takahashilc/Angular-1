@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Route } from '@angular/router';
 import { AuthGuard } from './core/auth/auth.guard';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { PhotoDetailsComponent } from './photos/photo-details/photo-details.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
@@ -28,7 +29,9 @@ const routes: Routes = [
     component: PhotoFormComponent,
     canActivate: [AuthGuard],
   },
-  { path: '**', component: NotFoundComponent },
+  { path: 'p/:photoId', component: PhotoDetailsComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: 'not-found' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
