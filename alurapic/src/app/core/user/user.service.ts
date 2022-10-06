@@ -8,6 +8,7 @@ import * as jwt_decode from 'jwt-decode';
 export class UserService {
   private userSubject = new BehaviorSubject<User>(null!);
   private userName!: string;
+  static getUserName: any;
   constructor(private tokenService: TokenService) {
     this.tokenService.hasToken() && this.decodeAndNotify();
   }

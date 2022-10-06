@@ -13,6 +13,7 @@ export class PhotoDetailsComponent implements OnInit {
   photo$!: Observable<Photo>;
   comments$!: Observable<PhotoComment[]>;
   photoId!: number;
+  userService: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,17 +38,19 @@ export class PhotoDetailsComponent implements OnInit {
   remove() {
     this.photoService.removePhoto(this.photoId).subscribe(
       () => {
-        this.alertService.success('Photo removed');
-        this.router.navigate(['']);
+        this.alertService.success('Photo removed', true);
+        this.router.navigate(['/user', this.userService.getUserName()], {
+          replaceUrl: true,
+        });
       },
       (err) => {
         console.log(err);
-        this.alertService.warning('Could not delete the photo');
+        this.alertService.warning('Could not delete the photo!', true);
       }
     );
   }
 
-  like(photo: Photo) {
+  like(photo: Photo): void {
     this.photoService.like(photo.id);
   }
 }
